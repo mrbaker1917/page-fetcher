@@ -1,7 +1,6 @@
 const request = require('request');
 const fs = require('fs');
 const args = process.argv.slice(2);
-console.log(args);
 
 request(args[0], (error, response, body) => {
   console.log('error:', error);
@@ -11,6 +10,8 @@ request(args[0], (error, response, body) => {
       console.error(err);
       return;
     }
-    console.log("File written sucessfully");
+    let stats = fs.statSync(args[1]);
+    let fileSize = stats["size"];
+    console.log(`Downloaded and saved ${fileSize} bytes to ${args[1]}`);
   });
 });
